@@ -11,6 +11,59 @@
  
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script>
+		function jisuan(){
+			//获得工资
+			var sal = document.getElementById("salary").value;
+			var regExp = /^[0-9]{4,5}$/;
+			if (!regExp.test(sal)){
+				//输入不合法
+				document.getElementById("salary").value="必须输入4-5个数字";
+				document.getElementById("salary").style="color:red";
+				return;
+			}
+			//如果输入合法，开始计算
+			var salNum = parseInt(sal);//把字符串转成数字
+			var ylgr = salNum * 0.08;//个人交的养老保险
+			var ylgs = salNum * 0.2;//公司交的养老保险
+			document.getElementById("ylgr").innerHTML=ylgr;
+			document.getElementById("ylgs").innerText=ylgs;
+			
+			var ybgr = salNum * 0.02;//个人
+			var ybgs = salNum * 0.06;//公司
+			document.getElementById("ybgr").innerText=ybgr;
+			document.getElementById("ybgs").innerText=ybgs;
+			
+			var sygr = salNum * 0.005;//个人
+			var sygs = salNum * 0.015;//公司
+			document.getElementById("sygr").innerText=sygr;
+			document.getElementById("sygs").innerHTML=sygs;
+			
+			var gs = salNum * 0.005;
+			document.getElementById("gs").innerHTML=gs;
+			
+			var sy = salNum * 0.008;
+			document.getElementById("sy").innerText=sy;
+			
+			var gjjgr = salNum * 0.12;
+			var gjjgs = salNum * 0.12;
+			document.getElementById("gjjgr").innerHTML=gjjgr;
+			document.getElementById("gjjgs").innerHTML=gjjgs;
+			
+			grhj = ylgr + ybgr + sygr + gjjgr;
+			gshj = ylgs + ybgs + gs + sy +gjjgs + sygs;
+			document.getElementById("grhj").innerHTML=grhj;
+			document.getElementById("gshj").innerHTML=gshj;
+			
+			var zonge = salNum + gshj;
+			document.getElementById("total").innerHTML=zonge;
+			
+		}
+	function clearTxt(){
+		document.getElementById("salary").value="";
+		document.getElementById("salary").style="color:black";
+	}
+	</script>
 	</head>
 	<body>
 		<div class="container text-center">
@@ -19,10 +72,10 @@
 			<tr>
 				<td>工资</td>
 				<td colspan="3"> 
-				<input type="text" id="salary" placeholder="请输入工资" class="form-control"/>
+				<input onfocus="clearTxt()"  type="text" id="salary" placeholder="请输入工资" class="form-control"/>
 				</td>
 				<td>
-					<button class="btn btn-danger btn-block">计算</button>
+					<button  onclick="jisuan()" class="btn btn-danger btn-block">计算</button>
 				</td>
 			</tr>
 			<tr class="bg-primary">
@@ -35,55 +88,55 @@
 			<tr>
 				<td>养老</td>
 				<td>8%</td>
-				<td></td>
+				<td id="ylgr"></td>
 				<td>20%</td>
-				<td></td>
+				<td id="ylgs"></td>
 			</tr>
 			<tr>
 				<td>医疗</td>
 				<td>2%</td>
-				<td></td>
-				<td>6%</td>
-				<td></td>
+				<td id="ybgr"></td>
+				<td >6%</td>
+				<td id="ybgs"></td>
 			</tr>
 			<tr>
 				<td>失业</td>
 				<td>0.5%</td>
-				<td></td>
+				<td id="sygr"></td>
 				<td>1.5%</td>
-				<td></td>
+				<td id="sygs"></td>
 			</tr>
 			<tr>
 				<td>工商</td>
 				<td></td>
 				<td></td>
 				<td>0.5%</td>
-				<td></td>
+				<td id="gs"></td>
 			</tr>
 			<tr>
 				<td>生育</td>
 				<td></td>
 				<td></td>
 				<td>0.8%</td>
-				<td></td>
+				<td id="sy"></td>
 			</tr>
 			<tr>
 				<td>公积金</td>
 				<td>12%</td>
-				<td></td>
+				<td id="gjjgr"></td>
 				<td>12%</td>
-				<td></td>
+				<td id="gjjgs"></td>
 			</tr>
 			<tr>
 				<td>合计</td>
 				<td>个人合计</td>
-				<td></td>
+				<td id="grhj"></td>
 				<td>公司合计</td>
-				<td></td>
+				<td id="gshj"></td>
 			</tr>
 			<tr>
-				<td>总额</td>
-				<td colspan="5"></td>
+				<td >总额</td>
+				<td colspan="5" id="total"></td>
 			</tr>
 		</table>
 		开发者：中北大学软件学院王鹏鹏
